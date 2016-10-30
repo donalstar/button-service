@@ -1,0 +1,7 @@
+com/donal/UserService.class
+com/donal/model/User.class
+com/donal/util/OAuthServiceConfig.class
+com/donal/UserResource.class
+com/donal/controller/FacebookController.class
+com/donal/util/OAuthServiceProvider.class
+com/donal/util/FacebookUtil.class

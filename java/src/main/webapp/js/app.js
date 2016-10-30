@@ -3,7 +3,7 @@ var application = angular.module('appname', [
 ]);
 
 
-
+var host_name = 'http://localhost:8080';
 
 application.config(['$httpProvider', '$locationProvider', function ($httpProvider, $locationProvider) {
 

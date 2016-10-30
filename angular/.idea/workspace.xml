@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7428b67d-823c-4ecb-bbf4-11ead14c4912" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.js" afterPath="$PROJECT_DIR$/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controller.js" afterPath="$PROJECT_DIR$/js/controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/services.js" afterPath="$PROJECT_DIR$/js/services.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../java/src/main/java/com/donal/UserResource.java" afterPath="$PROJECT_DIR$/../java/src/main/java/com/donal/UserResource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../java/src/main/java/com/donal/UserService.java" afterPath="$PROJECT_DIR$/../java/src/main/java/com/donal/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../java/src/main/webapp/home.html" afterPath="$PROJECT_DIR$/../java/src/main/webapp/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../java/src/main/webapp/js/controller.js" afterPath="$PROJECT_DIR$/../java/src/main/webapp/js/controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../java/src/main/webapp/js/services.js" afterPath="$PROJECT_DIR$/../java/src/main/webapp/js/services.js" />
     </list>
     <ignored path="angular.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -147,7 +146,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1580" />
+    <option name="x" value="1579" />
     <option name="y" value="-136" />
     <option name="width" value="1378" />
     <option name="height" value="1139" />
@@ -309,15 +308,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1477503239115</updated>
-      <workItem from="1477503240399" duration="26240000" />
+      <workItem from="1477503240399" duration="27421000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26240000" />
+    <option name="totallyTimeSpent" value="27421000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1580" y="-136" width="1378" height="1139" extended-state="0" />
+    <frame x="1579" y="-136" width="1378" height="1139" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23875181" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

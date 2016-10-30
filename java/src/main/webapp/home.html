@@ -93,6 +93,10 @@
                     <button type="button" ng-click="getPosts()" class="btn btn-info"
                             style="width:100px">Get Posts
                     </button>
+
+                    <button type="button" ng-click="getPosts1()" class="btn btn-primary"
+                            style="width:100px">Get Posts (1)
+                    </button>
                 </div>
             </div>
 
@@ -171,7 +175,11 @@
 
             </div>
 
-            <div class="panel panel-default" ng-show="processPostsSuccess">
+            <div class="panel panel-default">
+
+                <div>PAGE ID {{post_page_id}}</div>
+
+                <div>PAGE COUNT {{post_page_count}}</div>
 
                 <div class="row-fluid"
                      style="background-color: #f0f0f0; border-top-left-radius: 10px; border-top-right-radius: 10px;">
@@ -198,6 +206,9 @@
                 </div>
 
             </div>
+
+
+
         </div>
 
     </div>

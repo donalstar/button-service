@@ -45,7 +45,7 @@ I was unable to get the posts for the friends of the authenticated Facebook user
 
 I also was not able to query the Graph API using a hashtag as a query value, so instead, I retrieved all posts & iterated through the list to get the matching posts. 
 
-
+I believe that the Facebook App I created through the FB dashboard is a test app, so I need to add facebook users as testers through the dashboard in order for them to be able to use this test application. Please contact me if you dont seem to be able to successfully use the application with your Facebook ID. _(I'm not too familiar with this Facebook app configuration.)_ 
 
 
 

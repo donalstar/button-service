@@ -2,6 +2,33 @@
 
 ### Overview
 
+A simple REST-based service & corresponding client website to allow the following:
+
+* User authentication via Facebook (OAuth)
+* A search page to allow the user to search:
+   * All posts
+   * Posts for a particular date (in the format mm/dd/yyyy)
+   * Posts containing a matching hash tag (in the format "hashtag" or "#hashtag")
+   
+The REST service is built in Java, using:
+* Spring Social framework to handle redirect to the Facebook login dialog, and the resulting redirect
+* JAX-RS framework to provide REST end-points for User and Post resources
+* The restfb framework to allow querying of the Facebook Graph API for user profile & post data
+
+The web client is built using AngularJS
+
+### Pre-requisites 
+
+You will need the Java JDK (v 1.8) and Maven (v3.3.0 or greater) to build and run the application
+
+## To build & start the service
+
+```
+# Start the service
+$ mvn jetty:run
+```
+This will start a local web server instance, running on ``localhost:8080``
+
 ### Example Use Cases
 
 
@@ -120,12 +147,7 @@ $ cd bin
 
 ```
 
-## To start the service
 
-```
-# Start the service
-$ mvn jetty:run
-```
 
 
 

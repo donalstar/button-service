@@ -26,11 +26,12 @@ public class PostResource {
      * @return
      */
     @GET
-    @Path("/{page_id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getPostsForPage(@PathParam("page_id") int pageId, @Context HttpServletRequest request) {
-        System.out.println("Get posts for page " + pageId);
-        return facebookService.getPosts(pageId, request);
+    public Response getPostsForPage(@QueryParam("date") String date,
+                                    @QueryParam("hashtag") String hashtag,
+                                    @Context HttpServletRequest request) {
+
+        return facebookService.getPosts(date, hashtag, request);
     }
 
 }

@@ -1,7 +1,5 @@
 var services = angular.module('service', []);
 
-//var host_name = 'http://localhost:8080';
-
 services.factory('userService', ['$http', function ($http) {
     return {
         get: function () {
@@ -14,9 +12,21 @@ services.factory('userService', ['$http', function ($http) {
 
 services.factory('postService', ['$http', function ($http) {
     return {
-        get: function (page_id) {
+        get: function (search_date, hashtag) {
 
-            return $http.get(host_name + '/api/post/' + page_id);
+            console.log("#tag =  " + hashtag);
+            url = host_name + '/api/post/';
+
+            if (search_date != null) {
+                url += "?date=" + search_date;
+            }
+            else if (hashtag != null) {
+                url += "?hashtag=" + hashtag;
+            }
+
+            console.log("Svc url " + url);
+
+            return $http.get(url);
         }
 
     }

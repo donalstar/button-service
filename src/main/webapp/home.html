@@ -29,7 +29,6 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-
     <script src="js/app.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controller.js"></script>
@@ -45,173 +44,152 @@
         <div class="container">
 
             <div class="row">
-                <nav class="small-6 medium-1 large-1 text-left columns button-nav">
+
+                <div class="col-md-1">
                     <img class="logo" alt="Button Logo" src="/img/ic_button-mark-blue@2x.png"/>
-                </nav>
+                </div>
 
-            </div>
-
-
-            <div class="row">
-
-                <div class="col-md-12">
+                <div class="col-md-8">
 
                     <div class="intro-message">
 
                         <h1>button service!</h1>
+                        <h4 style="color: green">authenticated!</h4>
 
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="intro-message">
+                        <h3>Welcome, {{user.name}}</h3>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="intro-message">
                         <hr class="intro-divider">
                     </div>
                 </div>
             </div>
         </div>
 
+
         <div class="container">
 
             <div class="row">
                 <div class="col-md-12">
-
-                    <h3>authenticated!</h3>
-
-                    <h4>Welcome, {{user.name}}</h4>
-
-
-                    <hr class="intro-divider">
-
-                    <button type="button" ng-click="getTasks()" class="btn btn-info"
-                            style="width:100px">Get Tasks
-                    </button>
-
-                    <hr class="intro-divider">
-
-                    <button type="button" ng-click="getUser()" class="btn btn-info"
-                            style="width:100px">Get User
-                    </button>
-
-                    <hr class="intro-divider">
-
-                    <button type="button" ng-click="getPosts()" class="btn btn-info"
-                            style="width:100px">Get Posts
-                    </button>
-
-                    <button type="button" ng-click="getPosts1()" class="btn btn-primary"
-                            style="width:100px">Get Posts (1)
+                    <button type="button" ng-click="getAllPosts()" class="btn btn-primary"
+                            style="width:160px">Get All Posts
                     </button>
                 </div>
             </div>
 
-            <div>
+            <div class="row" style="margin-top:10px">
+                <div class="formContainer">
+                    <form name="by_date_form" ng-submit="getPostsForDate()">
 
-                <ul>
-                    <li>an end point that allows filtering by searches for relevant posts by a connection's
-                        name/username
-                    <li>an end point that searches for relevant posts by date & time
-                    <li>an end point that searches for relevant posts by hash-tags (or equivalent classification
-                        mechanism)
-                </ul>
+                        <div class="col-md-4 mb3p">
 
-
-            </div>
-
-            <div class="panel panel-default" ng-show="processSuccess">
-
-                <div class="row-fluid"
-                     style="background-color: #f0f0f0; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                    <label class="col-sm-3 control-label">tasks</label>
-
-                    <label class="col-sm-3">Count</label>
-                </div>
-
-
-                <div class="panel-heading">
-
-                </div>
-
-                <div class="panel-body">
-                    <div ng-repeat="task in tasks">
-
-                        <div class="row" style="margin-bottom:10px;">
-                            <div class="col-sm-3 control-label">{{task.id}}
-                            </div>
-
-                            <div class="col-sm-3">{{task.name}}
-
-                            </div>
+                            <input type="text" class="form-control input-medium" name="search_date"
+                                   id="date" ng-model="search_date"
+                                   placeholder="e.g. 5/12/2016" required>
 
                         </div>
+
+                        <div class="btnBox">
+                            <input type="submit" class="btn btn-primary" style="width:160px"
+                                   value="Get Posts by Date"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:10px">
+                <div class="formContainer">
+                    <form name="by_hashtag_form" ng-submit="getPostsForHashtag()">
+
+                        <div class="col-md-4 mb3p">
+
+                            <input type="text" class="form-control input-medium" name="hashtag"
+                                   id="hashtag" ng-model="hashtag"
+                                   placeholder="e.g. value" required>
+
+                        </div>
+
+                        <div class="btnBox">
+                            <input type="submit" class="btn btn-primary" style="width:160px"
+                                   value="Get Posts by Hashtag"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="progress progress-striped active"
+                     ng-show="processing"
+                     style="margin:10px">
+                    <div class="progress-bar" role="progressbar"
+                         aria-valuenow="100"
+                         aria-valuemin="0" aria-valuemax="100"
+                         style="width: 100%">
+                        Getting posts ...
                     </div>
                 </div>
 
+                <div class="center-block">{{queryStatus}}</div>
             </div>
 
-            <div class="panel panel-default" ng-show="processUserSuccess">
 
-                <div class="row-fluid"
-                     style="background-color: #f0f0f0; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                    <label class="col-sm-3 control-label">user</label>
+            <div ng-show="processSuccess">
 
-                    <label class="col-sm-3">Count</label>
-                </div>
+                <h2>
 
-
-                <div class="panel-heading">
-
-                </div>
-
-                <div class="panel-body">
-
-
-                    <div class="row" style="margin-bottom:10px;">
-                        <div class="col-sm-3 control-label">{{user.id}}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 style="color: green">results</h4>
                         </div>
+                    </div>
+                </h2>
 
-                        <div class="col-sm-3">{{user.name}}
+                <div class="panel panel-default">
 
-                        </div>
+
+                    <div class="row-fluid"
+                         style="background-color: #f0f0f0; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                        <label class="col-sm-3">Post</label>
+                    </div>
+
+                    <div class="panel-heading">
 
                     </div>
 
-                </div>
+                    <div class="panel-body">
+                        <div ng-repeat="post in posts">
 
-            </div>
+                            <div class="row" style="margin-bottom:10px;">
+                                <div class="col-sm-2">{{post.message}}
+                                </div>
 
-            <div class="panel panel-default">
-
-                <div>PAGE ID {{post_page_id}}</div>
-
-                <div>PAGE COUNT {{post_page_count}}</div>
-
-                <div class="row-fluid"
-                     style="background-color: #f0f0f0; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                    <label class="col-sm-3 control-label">user</label>
-
-                    <label class="col-sm-3">Count</label>
-                </div>
-
-
-                <div class="panel-heading">
-
-                </div>
-
-                <div class="panel-body">
-                    <div ng-repeat="post in posts">
-
-                        <div class="row" style="margin-bottom:10px;">
-                            <div class="col-sm-3 control-label">{{post}}
+                                <hr>
                             </div>
-
-
                         </div>
                     </div>
+
+
                 </div>
 
-            </div>
 
+            </div>
 
 
         </div>
 
+
     </div>
+
 
 </div>
 

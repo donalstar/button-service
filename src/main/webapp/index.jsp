@@ -47,26 +47,21 @@
 
                 <div class="container">
 
-                    <div class="row">
-                        <nav class="small-6 medium-1 large-1 text-left columns button-nav">
-                            <img class="logo" alt="Button Logo" src="/img/ic_button-mark-blue@2x.png" />
-                        </nav>
+                <div class="row">
 
-                    </div>
+                         <div class="col-md-1">
+                             <img class="logo" alt="Button Logo" src="/img/ic_button-mark-blue@2x.png"/>
+                         </div>
 
+                         <div class="col-md-9">
 
-                    <div class="row">
+                             <div class="intro-message">
 
-                        <div class="col-md-12">
+                                 <h1>button service!</h1>
 
-                            <div class="intro-message">
-
-                                <h1>button service!</h1>
-
-                                <hr class="intro-divider">
-                            </div>
-                        </div>
-                    </div>
+                             </div>
+                         </div>
+                     </div>
                 </div>
 
 

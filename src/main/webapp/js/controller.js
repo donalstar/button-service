@@ -3,6 +3,10 @@ application.controller('controller', ['$scope', '$rootScope', '$location', '$win
 
     function ($scope, $rootScope, $location, $window, userService, postService) {
 
+        $rootScope.processSuccess = false;
+        $rootScope.processing = false;
+
+
         $scope.fb_authenticate = function() {
             $window.location.replace("/social/facebook/signin");
         };
@@ -11,85 +15,72 @@ application.controller('controller', ['$scope', '$rootScope', '$location', '$win
 
         $scope.authenticated = $location.search().authx;
 
-        $scope.getTasks = function () {
-            $rootScope.processing = true;
+         $scope.getAllPosts = function () {
+             $scope.getPosts(null, null);
+         };
 
-            console.log("get tasks");
-
+        $scope.getPostsForDate = function () {
+            $scope.getPosts($scope.search_date, null);
         };
 
-        $scope.getPosts = function () {
-            $rootScope.processing = true;
-
-            console.log("get posts");
-
-            $scope.page_id = 0;
-
-            if ($scope.authenticated == 'true') {
-
-                 postService.get($scope.page_id)
-                     .success(function (data) {
-                        console.log("Got posts " + data.posts);
-
-                        $scope.posts = data.posts;
-                        $scope.post_page_id = data.pageId;
-                        $scope.post_page_count = data.pageCount;
-
-                     })
-                     .error(function (error) {
-                         $rootScope.processing = false;
-
-                         console.log(":Error  " + error);
-                  });
-            }
-
+        $scope.getPostsForHashtag = function () {
+            $scope.getPosts(null, $scope.hashtag);
         };
 
-                $scope.getPosts1 = function () {
-                    $rootScope.processing = true;
+        $scope.getPosts = function (date, hashtag) {
 
-                    console.log("get posts1");
+                 $rootScope.processing = true;
 
-                    $scope.page_id = 1;
+                 if ($scope.authenticated == 'true') {
 
-                    if ($scope.authenticated == 'true') {
+                      postService.get(date, hashtag)
+                          .success(function (data) {
+                             $rootScope.processing = false;
+                             $rootScope.processSuccess = true;
 
-                         postService.get($scope.page_id)
-                             .success(function (data) {
-                                console.log("Got posts (1)" + data);
+                             console.log("Got posts " + data.posts);
 
-                             })
-                             .error(function (error) {
-                                 $rootScope.processing = false;
+                             // ugh!!
 
-                                 console.log(":Error  " + error);
-                          });
-                    }
+                             if (typeof data.posts != 'undefined') {
+                                if (data.posts.constructor === Array) {
+                                    $scope.posts = data.posts;
+                                }
+                                else {
+                                   console.log("just one " + data.posts)
 
-                };
+                                   result = [ data.posts ];
+                                   $scope.posts = result;
+                                }
+                             }
+                             else {
+                                $scope.posts = [];
+                             }
+                          })
+                          .error(function (error) {
+                              $rootScope.processing = false;
+
+                              console.log(":Error  " + error);
+                       });
+                 }
+
+             };
 
 
+        // Get User
         $scope.getUser = function () {
-            $rootScope.processing = true;
 
             if ($scope.authenticated == 'true') {
 
                  userService.get()
                      .success(function (data) {
-                         $rootScope.processing = false;
-                         $rootScope.processUserSuccess = true;
-
                          $rootScope.user = data;
 
                      })
                      .error(function (error) {
-                         $rootScope.processing = false;
-
                          console.log(":Error  " + error);
                   });
             }
-
-
         };
 
         $scope.getUser();

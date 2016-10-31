@@ -39,7 +39,11 @@ Run the tests as follows:
 $ mvn test
 ```
 
-### Example Use Cases
+### Caveats & Assumptions
+
+I was unable to get the posts for the friends of the authenticated Facebook user. Far as I can tell (from the FB Graph API) this data is no longer available through the API -- so I have skipped that part of the assignment.
+
+I also was not able to query the Graph API using a hashtag as a query value, so instead, I retrieved all posts & iterated through the list to get the matching posts. 
 
 
 

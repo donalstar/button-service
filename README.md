@@ -1,5 +1,9 @@
 ## Button Service
 
+### Specification
+
+https://www.usebutton.com/developers/partner-engineer-coding-challenge/
+
 ### Overview
 
 A simple REST-based service & corresponding client website to allow the following:

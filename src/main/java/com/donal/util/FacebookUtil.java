@@ -4,6 +4,8 @@ import com.restfb.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Service
@@ -30,6 +32,16 @@ public class FacebookUtil {
         FacebookClient.AccessToken userToken = getFacebookUserToken(code, callback);
 
         return new DefaultFacebookClient(userToken.getAccessToken(), Version.VERSION_2_5);
+    }
+
+    /**
+     * @param request
+     * @return
+     */
+    public FacebookClient getFacebookClientFromSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        return (FacebookClient) session.getAttribute("client");
     }
 
     /**

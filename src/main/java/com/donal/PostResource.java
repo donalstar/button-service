@@ -1,5 +1,7 @@
 package com.donal;
 
+import com.donal.util.FacebookUtil;
+import com.restfb.FacebookClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,9 @@ import javax.ws.rs.core.Response;
 @Path("post")
 public class PostResource {
     private FacebookService facebookService;
+
+    @Autowired
+    FacebookUtil facebookUtil;
 
     @Autowired
     public PostResource(FacebookService facebookService) {
@@ -31,7 +36,10 @@ public class PostResource {
                                     @QueryParam("hashtag") String hashtag,
                                     @Context HttpServletRequest request) {
 
-        return facebookService.getPosts(date, hashtag, request);
+
+        FacebookClient facebookClient = facebookUtil.getFacebookClientFromSession(request);
+
+        return facebookService.getPosts(date, hashtag, facebookClient);
     }
 
 }

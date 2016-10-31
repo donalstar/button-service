@@ -1,5 +1,7 @@
 package com.donal;
 
+import com.donal.util.FacebookUtil;
+import com.restfb.FacebookClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,9 @@ public class UserResource {
     private FacebookService facebookService;
 
     @Autowired
+    FacebookUtil facebookUtil;
+
+    @Autowired
     public UserResource(FacebookService taskService) {
         this.facebookService = taskService;
     }
@@ -32,7 +37,10 @@ public class UserResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getUser(@Context HttpServletRequest request) {
-        return facebookService.getUser(request);
+
+        FacebookClient facebookClient = facebookUtil.getFacebookClientFromSession(request);
+
+        return facebookService.getUser(facebookClient);
     }
 
 }

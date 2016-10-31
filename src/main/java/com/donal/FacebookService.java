@@ -9,11 +9,8 @@ import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Post;
-import com.restfb.types.User;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,12 +28,10 @@ public class FacebookService {
     /**
      * Get  user
      *
-     * @param request
+     * @param facebookClient
      * @return
      */
-    public Response getUser(HttpServletRequest request) {
-
-        FacebookClient facebookClient = getFacebookClientFromSession(request);
+    public Response getUser(FacebookClient facebookClient) {
 
         if (facebookClient != null) {
             JsonObject me = facebookClient.fetchObject("me", JsonObject.class);
@@ -57,14 +52,12 @@ public class FacebookService {
     }
 
     /**
-     * @param request
+     * @param facebookClient
      * @return
      */
-    public Response getPosts(String date, String hashtag, HttpServletRequest request) {
+    public Response getPosts(String date, String hashtag, FacebookClient facebookClient) {
 
         logger.info("Get posts for date " + date + " hashtag " + hashtag);
-
-        HttpSession session = request.getSession();
 
         Date searchDate = null;
 
@@ -77,10 +70,7 @@ public class FacebookService {
             }
         }
 
-        FacebookClient facebookClient = getFacebookClientFromSession(request);
-
         if (facebookClient != null) {
-
             Connection<Post> postsFeed;
 
             if (searchDate == null) {
@@ -91,7 +81,7 @@ public class FacebookService {
                 postsFeed = facebookClient.fetchConnection("me/feed", Post.class, Parameter.with("since", time_secs));
             }
 
-            session.setAttribute("postsFeed", postsFeed);
+            logger.info("posts feed " + postsFeed);
 
             Result result = parseFeedResults(postsFeed, hashtag);
 
@@ -111,27 +101,31 @@ public class FacebookService {
      * @return
      */
     private Result parseFeedResults(Connection<Post> postsFeed, String hashtag) {
-
-
-
         Result result = new Result();
 
         List<PostData> posts = new ArrayList<PostData>();
 
-        System.out.println("Count of posts " + postsFeed.getData().size());
-
         int count = 0;
 
-        for (List<Post> page : postsFeed) {
+        for (Post post : postsFeed.getData()) {
 
-            for (Post post : page) {
+            if (count < RESULTS_LIMIT) { // arbitrary test limit
 
-                if (count < RESULTS_LIMIT) { // arbitrary test limit
+                String message = post.getMessage();
 
-                    String message = post.getMessage();
+                // if hashtag is non-null, only add results containing the hashtag
+                if (hashtag == null) {
+                    PostData postData = new PostData();
+                    postData.setId(post.getId());
 
-                    // if hashtag is non-null, only add results containing the hashtag
-                    if (hashtag == null) {
+                    postData.setMessage(post.getMessage());
+                    posts.add(postData);
+
+                    count++;
+                } else {
+                    String searchClause = hashtag.startsWith("#") ? hashtag : "#" + hashtag;
+
+                    if (message != null && message.contains(searchClause)) {
                         PostData postData = new PostData();
                         postData.setId(post.getId());
 
@@ -141,26 +135,6 @@ public class FacebookService {
 
                         count++;
                     }
-                    else {
-                        String searchClause = hashtag.startsWith("#") ? hashtag : "#" + hashtag;
-
-                        if (message!= null && message.contains(searchClause)) {
-                            System.out.println(("Matched hashtag " + message));
-                            System.out.println("name " + post.getName());
-
-
-                            PostData postData = new PostData();
-                            postData.setId(post.getId());
-
-
-                            postData.setMessage(post.getMessage());
-                            posts.add(postData);
-
-                            count++;
-                        }
-                    }
-
-
                 }
             }
         }
@@ -169,6 +143,7 @@ public class FacebookService {
 
         return result;
     }
+
 
     /**
      * @param dateString
@@ -189,37 +164,5 @@ public class FacebookService {
         }
 
         return searchDate;
-    }
-
-
-    private void testGetFriendPosts(FacebookClient facebookClient) {
-
-        System.out.println("Get friend posts");
-
-        Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
-
-
-        for (List<User> userPage : myFriends) {
-            System.out.println("Friend page - count = " + userPage.size());
-
-            for (User user : userPage) {
-
-                System.out.println("User " + user.getName());
-
-            }
-
-        }
-
-
-    }
-
-    /**
-     * @param request
-     * @return
-     */
-    private FacebookClient getFacebookClientFromSession(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-
-        return (FacebookClient) session.getAttribute("client");
     }
 }
